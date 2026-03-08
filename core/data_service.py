@@ -12,11 +12,20 @@ class DataService:
         """獲取目前價格"""
         try:
             t = yf.Ticker(ticker)
+            # 試用 fast_info 先
+            try:
+                price = t.fast_info['lastPrice']
+                if price and price > 0:
+                    return price
+            except:
+                pass
+            
+            # Fallback to history
             data = t.history(period="1d")
             if not data.empty:
                 return data['Close'].iloc[-1]
-        except:
-            pass
+        except Exception as e:
+            print(f"Error fetching price for {ticker}: {e}")
         return None
     
     def get_prices(self, tickers):
@@ -29,39 +38,52 @@ class DataService:
         return prices
     
     def get_ttm_dividend(self, ticker):
-        """獲取過去 12 個月每股股息
-        
-        改用更穩定的方法：
-        1. 先試 ticker.info['dividendRate']
-        2. 如果無，利用 dividends history 計算
-        """
+        """獲取過去 12 個月每股股息 - 使用 ticker.info 更穩定"""
         try:
             t = yf.Ticker(ticker)
-            
-            # Method 1: 直接用 dividendRate (annual forward dividend)
             info = t.info
+            
+            # Method 1: trailingAnnualDividendRate (最可靠)
+            if 'trailingAnnualDividendRate' in info and info['trailingAnnualDividendRate']:
+                rate = info['trailingAnnualDividendRate']
+                if rate > 0:
+                    print(f"{ticker} dividend (trailingAnnualDividendRate): {rate}")
+                    return rate
+            
+            # Method 2: dividendRate (forward dividend)
             if 'dividendRate' in info and info['dividendRate']:
-                return info['dividendRate']
+                rate = info['dividendRate']
+                if rate > 0:
+                    print(f"{ticker} dividend (dividendRate): {rate}")
+                    return rate
             
-            # Method 2: 計算過去 12 個月實際股息
+            # Method 3: dividendYield * price
+            if 'dividendYield' in info and info['dividendYield']:
+                div_yield = info['dividendYield']
+                if 'currentPrice' in info and info['currentPrice']:
+                    estimated_div = div_yield * info['currentPrice']
+                    if estimated_div > 0:
+                        print(f"{ticker} dividend (yield * price): {estimated_div}")
+                        return estimated_div
+            
+            # Method 4: 計算過去 365 天實際派息
             divs = t.dividends
+            if not divs.empty:
+                one_year_ago = pd.Timestamp.now() - pd.Timedelta(days=365)
+                recent_divs = divs[divs.index > one_year_ago]
+                
+                if not recent_divs.empty:
+                    ttm_div = recent_divs.sum()
+                    print(f"{ticker} dividend (TTM actual): {ttm_div}")
+                    return ttm_div
+                
+                # Fallback: 用最近 4 次 annualize
+                if len(divs) >= 4:
+                    last_4 = divs.tail(4).sum()
+                    print(f"{ticker} dividend (last 4): {last_4}")
+                    return last_4
             
-            if divs.empty:
-                return 0.0
-            
-            one_year_ago = datetime.now() - timedelta(days=365)
-            recent_divs = divs[divs.index > one_year_ago]
-            
-            if not recent_divs.empty:
-                return recent_divs.sum()
-            
-            # Method 3: 如果最近 1 年無數據，用最近 4 次派息
-            if len(divs) >= 4:
-                return divs.tail(4).sum()
-            elif len(divs) > 0:
-                # 用最近的 annualize
-                avg_div = divs.tail(min(4, len(divs))).mean()
-                return avg_div * 4  # 假設年派 4 次
+            print(f"{ticker} dividend: 0.0 (no data found)")
             
         except Exception as e:
             print(f"Error fetching dividend for {ticker}: {e}")
