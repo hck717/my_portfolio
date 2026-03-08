@@ -1,7 +1,7 @@
-"""規則頁面"""
-from PySide6.QtWidgets import (QWidget, QVBoxLayout, QFormLayout, QLabel, 
+"""規則頁面 - 加執行按鈕"""
+from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QFormLayout, QLabel, 
                                QGroupBox, QSpinBox, QPushButton, QTableWidget, 
-                               QTableWidgetItem, QHeaderView)
+                               QTableWidgetItem, QHeaderView, QMessageBox)
 from PySide6.QtCore import Qt
 
 class RulesTab(QWidget):
@@ -16,8 +16,10 @@ class RulesTab(QWidget):
         
         # Rule 1 - DCA
         rule1_group = QGroupBox("⚙️ Rule 1 - DCA 觸發判斷")
-        rule1_layout = QFormLayout()
+        rule1_layout = QVBoxLayout()
         rule1_group.setLayout(rule1_layout)
+        
+        rule1_form = QFormLayout()
         
         self.rsp_price_label = QLabel()
         self.rsp_yesterday_label = QLabel()
@@ -29,15 +31,35 @@ class RulesTab(QWidget):
         self.buy3_label = QLabel()
         self.fallback_label = QLabel()
         
-        rule1_layout.addRow("RSP 目前價格:", self.rsp_price_label)
-        rule1_layout.addRow("RSP 昨日收市:", self.rsp_yesterday_label)
-        rule1_layout.addRow("RSP 單日變化:", self.rsp_daily_change_label)
-        rule1_layout.addRow("RSP 月內高位:", self.rsp_monthly_high_label)
-        rule1_layout.addRow("RSP 月內回撤:", self.rsp_monthly_dd_label)
-        rule1_layout.addRow("🟢 Buy1 觸發 (>= -1%):", self.buy1_label)
-        rule1_layout.addRow("🟡 Buy2 觸發 (>= -5%):", self.buy2_label)
-        rule1_layout.addRow("🔴 Buy3 觸發 (>= -10%):", self.buy3_label)
-        rule1_layout.addRow("🟡 第3個星期五保底:", self.fallback_label)
+        rule1_form.addRow("RSP 目前價格:", self.rsp_price_label)
+        rule1_form.addRow("RSP 昨日收市:", self.rsp_yesterday_label)
+        rule1_form.addRow("RSP 單日變化:", self.rsp_daily_change_label)
+        rule1_form.addRow("RSP 月內高位:", self.rsp_monthly_high_label)
+        rule1_form.addRow("RSP 月內回撤:", self.rsp_monthly_dd_label)
+        rule1_form.addRow("🟢 Buy1 觸發 (>= -1%):", self.buy1_label)
+        rule1_form.addRow("🟡 Buy2 觸發 (>= -5%):", self.buy2_label)
+        rule1_form.addRow("🔴 Buy3 觸發 (>= -10%):", self.buy3_label)
+        rule1_form.addRow("🟡 第3個星期五保底:", self.fallback_label)
+        
+        rule1_layout.addLayout(rule1_form)
+        
+        # Rule 1 Execute Buttons
+        rule1_btns = QHBoxLayout()
+        self.buy1_btn = QPushButton("🟢 執行 Buy1")
+        self.buy2_btn = QPushButton("🟡 執行 Buy2")
+        self.buy3_btn = QPushButton("🔴 執行 Buy3")
+        self.fallback_btn = QPushButton("🟡 執行 Fallback")
+        
+        self.buy1_btn.clicked.connect(lambda: self.execute_rule1('buy1'))
+        self.buy2_btn.clicked.connect(lambda: self.execute_rule1('buy2'))
+        self.buy3_btn.clicked.connect(lambda: self.execute_rule1('buy3'))
+        self.fallback_btn.clicked.connect(lambda: self.execute_rule1('fallback'))
+        
+        rule1_btns.addWidget(self.buy1_btn)
+        rule1_btns.addWidget(self.buy2_btn)
+        rule1_btns.addWidget(self.buy3_btn)
+        rule1_btns.addWidget(self.fallback_btn)
+        rule1_layout.addLayout(rule1_btns)
         
         layout.addWidget(rule1_group)
         
@@ -59,8 +81,10 @@ class RulesTab(QWidget):
         
         # Rule 2 - Tactical Overlay
         rule2_group = QGroupBox("🚀 Rule 2 - Tactical Overlay")
-        rule2_layout = QFormLayout()
+        rule2_layout = QVBoxLayout()
         rule2_group.setLayout(rule2_layout)
+        
+        rule2_form = QFormLayout()
         
         self.iwy_price_label = QLabel()
         self.iwy_40d_label = QLabel()
@@ -70,22 +94,29 @@ class RulesTab(QWidget):
         self.spmo_return_label = QLabel()
         self.price_trigger_label = QLabel()
         
-        rule2_layout.addRow("IWY 目前價格:", self.iwy_price_label)
-        rule2_layout.addRow("IWY 40交易日前:", self.iwy_40d_label)
-        rule2_layout.addRow("IWY 40D 回報:", self.iwy_return_label)
-        rule2_layout.addRow("SPMO 目前價格:", self.spmo_price_label)
-        rule2_layout.addRow("SPMO 40交易日前:", self.spmo_40d_label)
-        rule2_layout.addRow("SPMO 40D 回報:", self.spmo_return_label)
-        rule2_layout.addRow("🎯 價格觸發 (both <= -20%):", self.price_trigger_label)
+        rule2_form.addRow("IWY 目前價格:", self.iwy_price_label)
+        rule2_form.addRow("IWY 40交易日前:", self.iwy_40d_label)
+        rule2_form.addRow("IWY 40D 回報:", self.iwy_return_label)
+        rule2_form.addRow("SPMO 目前價格:", self.spmo_price_label)
+        rule2_form.addRow("SPMO 40交易日前:", self.spmo_40d_label)
+        rule2_form.addRow("SPMO 40D 回報:", self.spmo_return_label)
+        rule2_form.addRow("🎯 價格觸發 (both <= -20%):", self.price_trigger_label)
         
-        # Rule 2 Investment Display
         self.rule2_sell_bnd_label = QLabel()
         self.rule2_buy_iwy_label = QLabel()
         self.rule2_buy_spmo_label = QLabel()
         
-        rule2_layout.addRow("💰 賣出 BND 金額:", self.rule2_sell_bnd_label)
-        rule2_layout.addRow("🔺 買入 IWY 金額:", self.rule2_buy_iwy_label)
-        rule2_layout.addRow("🔺 買入 SPMO 金額:", self.rule2_buy_spmo_label)
+        rule2_form.addRow("💰 賣出 BND 金額:", self.rule2_sell_bnd_label)
+        rule2_form.addRow("🔺 買入 IWY 金額:", self.rule2_buy_iwy_label)
+        rule2_form.addRow("🔺 買入 SPMO 金額:", self.rule2_buy_spmo_label)
+        
+        rule2_layout.addLayout(rule2_form)
+        
+        # Rule 2 Execute Button
+        self.rule2_btn = QPushButton("🚀 執行 Rule 2 Tactical")
+        self.rule2_btn.setStyleSheet("padding: 10px; background-color: #FF5722; color: white; font-weight: bold;")
+        self.rule2_btn.clicked.connect(self.execute_rule2)
+        rule2_layout.addWidget(self.rule2_btn)
         
         layout.addWidget(rule2_group)
         
@@ -124,6 +155,59 @@ class RulesTab(QWidget):
         
         layout.addWidget(macro_group)
         layout.addStretch()
+    
+    def execute_rule1(self, rule_type):
+        """Execute Rule 1 buy"""
+        reply = QMessageBox.question(
+            self,
+            f"確認執行 Rule 1 {rule_type.upper()}",
+            f"確定要執行 Rule 1 {rule_type.upper()} 買入？",
+            QMessageBox.Yes | QMessageBox.No
+        )
+        
+        if reply == QMessageBox.Yes:
+            try:
+                self.main_window.portfolio_manager.execute_rule1_buy(
+                    self.main_window.rule1_investments,
+                    self.main_window.prices,
+                    rule_type
+                )
+                
+                QMessageBox.information(
+                    self,
+                    "執行完成",
+                    f"Rule 1 {rule_type.upper()} 已完成！"
+                )
+                
+                self.main_window.update_all_tabs()
+            except Exception as e:
+                QMessageBox.critical(self, "錯誤", f"執行失敗：{str(e)}")
+    
+    def execute_rule2(self):
+        """Execute Rule 2 tactical"""
+        reply = QMessageBox.question(
+            self,
+            "確認執行 Rule 2 Tactical",
+            "確定要執行 Rule 2 Tactical Overlay？\n\n這會賣出 50% BND，買入 IWY 和 SPMO。",
+            QMessageBox.Yes | QMessageBox.No
+        )
+        
+        if reply == QMessageBox.Yes:
+            try:
+                self.main_window.portfolio_manager.execute_rule2_tactical(
+                    self.main_window.rule2_investments,
+                    self.main_window.prices
+                )
+                
+                QMessageBox.information(
+                    self,
+                    "執行完成",
+                    "Rule 2 Tactical Overlay 已完成！"
+                )
+                
+                self.main_window.update_all_tabs()
+            except Exception as e:
+                QMessageBox.critical(self, "錯誤", f"執行失敗：{str(e)}")
     
     def save_macro_signals(self):
         self.main_window.settings["lei_signal"] = self.lei_input.value()
