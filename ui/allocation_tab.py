@@ -1,4 +1,4 @@
-"""Allocation tab"""
+"""配置頁面"""
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QTableWidget, QTableWidgetItem,
                                QHeaderView, QLabel)
 from PySide6.QtCore import Qt
@@ -14,14 +14,14 @@ class AllocationTab(QWidget):
         layout = QVBoxLayout()
         self.setLayout(layout)
         
-        title = QLabel("ETF Target Allocation")
+        title = QLabel("🎯 ETF 目標配置")
         title.setStyleSheet("font-size: 16px; font-weight: bold;")
         layout.addWidget(title)
         
         self.table = QTableWidget()
         self.table.setColumnCount(6)
         self.table.setHorizontalHeaderLabels([
-            "Ticker", "Role", "Weight", "Price (USD)", "Target Value (USD)", "Target Shares"
+            "Ticker", "角色", "權重", "價格 (USD)", "目標金額 (USD)", "目標股數"
         ])
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         layout.addWidget(self.table)

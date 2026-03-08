@@ -1,4 +1,4 @@
-"""Dashboard tab"""
+"""主控台頁面"""
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QFormLayout, QLineEdit, 
                                QComboBox, QLabel, QPushButton, QGroupBox)
 from PySide6.QtCore import Qt
@@ -13,7 +13,8 @@ class DashboardTab(QWidget):
         layout = QVBoxLayout()
         self.setLayout(layout)
         
-        input_group = QGroupBox("Input Settings")
+        # 輸入設定
+        input_group = QGroupBox("📝 輸入設定")
         input_layout = QFormLayout()
         input_group.setLayout(input_layout)
         
@@ -24,18 +25,19 @@ class DashboardTab(QWidget):
         self.extra_input = QLineEdit(str(self.main_window.settings["extra_investable_usd"]))
         self.fx_input = QLineEdit(str(self.main_window.settings["fx_rate"]))
         
-        input_layout.addRow("Current Assets (HKD):", self.assets_input)
-        input_layout.addRow("Mode:", self.mode_combo)
-        input_layout.addRow("Extra Investable (USD):", self.extra_input)
-        input_layout.addRow("USDHKD FX Rate:", self.fx_input)
+        input_layout.addRow("💰 總資產 (HKD):", self.assets_input)
+        input_layout.addRow("👤 模式:", self.mode_combo)
+        input_layout.addRow("🔺 額外可投資 (USD):", self.extra_input)
+        input_layout.addRow("💱 USDHKD 匯率:", self.fx_input)
         
-        save_btn = QPushButton("Save Settings")
+        save_btn = QPushButton("✅ 儲存設定")
         save_btn.clicked.connect(self.save_settings)
         input_layout.addRow(save_btn)
         
         layout.addWidget(input_group)
         
-        calcs_group = QGroupBox("Portfolio Calculations")
+        # 組合計算
+        calcs_group = QGroupBox("📊 組合計算")
         calcs_layout = QFormLayout()
         calcs_group.setLayout(calcs_layout)
         
@@ -46,12 +48,12 @@ class DashboardTab(QWidget):
         self.ceiling_cash_label = QLabel()
         self.investable_label = QLabel()
         
-        calcs_layout.addRow("Estimated Annual Dividend (USD):", self.est_div_label)
-        calcs_layout.addRow("Monthly Minimum Investment (USD):", self.monthly_min_label)
-        calcs_layout.addRow("Target Cash (HKD / USD):", self.target_cash_label)
-        calcs_layout.addRow("Cash Floor (HKD / USD):", self.floor_cash_label)
-        calcs_layout.addRow("Cash Ceiling (HKD / USD):", self.ceiling_cash_label)
-        calcs_layout.addRow("Final Investable Amount (HKD / USD):", self.investable_label)
+        calcs_layout.addRow("💵 估算年度股息 (USD):", self.est_div_label)
+        calcs_layout.addRow("📈 每月最低投資額 (USD):", self.monthly_min_label)
+        calcs_layout.addRow("🎯 目標現金 (HKD / USD):", self.target_cash_label)
+        calcs_layout.addRow("⚠️ 現金底線 (HKD / USD):", self.floor_cash_label)
+        calcs_layout.addRow("🔺 現金上限 (HKD / USD):", self.ceiling_cash_label)
+        calcs_layout.addRow("💼 最終可投資金額 (HKD / USD):", self.investable_label)
         
         layout.addWidget(calcs_group)
         layout.addStretch()
