@@ -66,10 +66,16 @@ class DataService:
                         print(f"{ticker} dividend (yield * price): {estimated_div}")
                         return estimated_div
             
-            # Method 4: 計算過去 365 天實際派息
+            # Method 4: 計算過去 365 天實際派息 (FIX timezone issue)
             divs = t.dividends
             if not divs.empty:
+                # Convert to timezone-naive
                 one_year_ago = pd.Timestamp.now() - pd.Timedelta(days=365)
+                one_year_ago = one_year_ago.tz_localize(None)  # Remove timezone
+                
+                # Make divs index timezone-naive
+                divs.index = divs.index.tz_localize(None)
+                
                 recent_divs = divs[divs.index > one_year_ago]
                 
                 if not recent_divs.empty:
