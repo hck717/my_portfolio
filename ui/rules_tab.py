@@ -1,6 +1,7 @@
 """規則頁面"""
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QFormLayout, QLabel, 
-                               QGroupBox, QSpinBox, QPushButton)
+                               QGroupBox, QSpinBox, QPushButton, QTableWidget, 
+                               QTableWidgetItem, QHeaderView)
 from PySide6.QtCore import Qt
 
 class RulesTab(QWidget):
@@ -40,6 +41,22 @@ class RulesTab(QWidget):
         
         layout.addWidget(rule1_group)
         
+        # Rule 1 Investment Table
+        rule1_invest_group = QGroupBox("💵 Rule 1 每次買入金額")
+        rule1_invest_layout = QVBoxLayout()
+        rule1_invest_group.setLayout(rule1_invest_layout)
+        
+        self.rule1_table = QTableWidget()
+        self.rule1_table.setColumnCount(4)
+        self.rule1_table.setHorizontalHeaderLabels([
+            "Ticker", "金額 (USD)", "股數", "價格 (USD)"
+        ])
+        self.rule1_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.rule1_table.setMaximumHeight(200)
+        rule1_invest_layout.addWidget(self.rule1_table)
+        
+        layout.addWidget(rule1_invest_group)
+        
         # Rule 2 - Tactical Overlay
         rule2_group = QGroupBox("🚀 Rule 2 - Tactical Overlay")
         rule2_layout = QFormLayout()
@@ -60,6 +77,15 @@ class RulesTab(QWidget):
         rule2_layout.addRow("SPMO 40交易日前:", self.spmo_40d_label)
         rule2_layout.addRow("SPMO 40D 回報:", self.spmo_return_label)
         rule2_layout.addRow("🎯 價格觸發 (both <= -20%):", self.price_trigger_label)
+        
+        # Rule 2 Investment Display
+        self.rule2_sell_bnd_label = QLabel()
+        self.rule2_buy_iwy_label = QLabel()
+        self.rule2_buy_spmo_label = QLabel()
+        
+        rule2_layout.addRow("💰 賣出 BND 金額:", self.rule2_sell_bnd_label)
+        rule2_layout.addRow("🔺 買入 IWY 金額:", self.rule2_buy_iwy_label)
+        rule2_layout.addRow("🔺 買入 SPMO 金額:", self.rule2_buy_spmo_label)
         
         layout.addWidget(rule2_group)
         
@@ -92,7 +118,7 @@ class RulesTab(QWidget):
         self.cash_gate_label = QLabel()
         self.rule2_final_label = QLabel()
         
-        macro_layout.addRow("🎯 宏觀狀態:", self.macro_regime_label)
+        macro_layout.addRow("🎯 經濟週期:", self.macro_regime_label)
         macro_layout.addRow("💰 現金高於底線:", self.cash_gate_label)
         macro_layout.addRow("✅ Rule 2 最終決定:", self.rule2_final_label)
         
@@ -141,6 +167,19 @@ class RulesTab(QWidget):
             self.buy3_label.setText("✅ 已觸發" if triggers["buy3"] else "❌ 未觸發")
             self.fallback_label.setText("🟡 窗口開啟" if triggers["fallback"] else "")
         
+        # Rule 1 Investment Table
+        if hasattr(self.main_window, 'rule1_investments'):
+            investments = self.main_window.rule1_investments
+            self.rule1_table.setRowCount(len(investments))
+            
+            row = 0
+            for ticker, data in sorted(investments.items()):
+                self.rule1_table.setItem(row, 0, QTableWidgetItem(ticker))
+                self.rule1_table.setItem(row, 1, QTableWidgetItem(f"${data['amount_usd']:.2f}"))
+                self.rule1_table.setItem(row, 2, QTableWidgetItem(f"{data['shares']:.2f}"))
+                self.rule1_table.setItem(row, 3, QTableWidgetItem(f"${data['price']:.2f}"))
+                row += 1
+        
         # Rule 2 Display
         if "IWY" in prices and "SPMO" in prices:
             iwy_price = prices["IWY"]
@@ -177,6 +216,13 @@ class RulesTab(QWidget):
             
             self.price_trigger_label.setText("🟢 已觸發" if triggered else "🔴 未觸發")
             
+            # Rule 2 Investment Display
+            if hasattr(self.main_window, 'rule2_investments'):
+                r2_inv = self.main_window.rule2_investments
+                self.rule2_sell_bnd_label.setText(f"${r2_inv.get('sell_bnd_amount', 0):.2f}")
+                self.rule2_buy_iwy_label.setText(f"${r2_inv.get('iwy_buy_amount', 0):.2f} ({r2_inv.get('iwy_shares', 0):.2f} shares)")
+                self.rule2_buy_spmo_label.setText(f"${r2_inv.get('spmo_buy_amount', 0):.2f} ({r2_inv.get('spmo_shares', 0):.2f} shares)")
+            
             # Macro Display
             if hasattr(self.main_window, 'yield_spread') and self.main_window.yield_spread is not None:
                 self.yield_spread_label.setText(f"{self.main_window.yield_spread:.2f}%")
@@ -193,9 +239,10 @@ class RulesTab(QWidget):
             )
             
             regime_colors = {
-                "Normal": "🟢 Normal",
-                "Caution": "🟡 Caution",
-                "Recession": "🔴 Recession"
+                "Expansion": "🟢 Expansion (擴張期)",
+                "Peak": "🟡 Peak (高峰期)",
+                "Contraction": "🔴 Contraction (收縮期)",
+                "Trough": "🔵 Trough (谷底期)"
             }
             self.macro_regime_label.setText(regime_colors.get(macro_regime, macro_regime))
             
