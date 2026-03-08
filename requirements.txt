@@ -1,5 +1,6 @@
-PySide6>=6.6.0
-yfinance>=0.2.36
-pandas>=2.0.0
-matplotlib>=3.7.0
-numpy>=1.24.0
+yfinance
+requests
+pandas
+numpy
+PySide6
+matplotlib
