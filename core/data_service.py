@@ -1,4 +1,4 @@
-"""Market data service using yfinance"""
+"""市場數據服務 (yfinance)"""
 import yfinance as yf
 import pandas as pd
 from datetime import datetime, timedelta
@@ -9,7 +9,7 @@ class DataService:
         self.cache_time = {}
     
     def get_price(self, ticker):
-        """Get current price"""
+        """獲取目前價格"""
         try:
             t = yf.Ticker(ticker)
             data = t.history(period="1d")
@@ -20,7 +20,7 @@ class DataService:
         return None
     
     def get_prices(self, tickers):
-        """Get prices for multiple tickers"""
+        """獲取多隻 ticker 價格"""
         prices = {}
         for ticker in tickers:
             price = self.get_price(ticker)
@@ -29,9 +29,21 @@ class DataService:
         return prices
     
     def get_ttm_dividend(self, ticker):
-        """Get trailing 12-month dividend per share"""
+        """獲取過去 12 個月每股股息
+        
+        改用更穩定的方法：
+        1. 先試 ticker.info['dividendRate']
+        2. 如果無，利用 dividends history 計算
+        """
         try:
             t = yf.Ticker(ticker)
+            
+            # Method 1: 直接用 dividendRate (annual forward dividend)
+            info = t.info
+            if 'dividendRate' in info and info['dividendRate']:
+                return info['dividendRate']
+            
+            # Method 2: 計算過去 12 個月實際股息
             divs = t.dividends
             
             if divs.empty:
@@ -40,12 +52,24 @@ class DataService:
             one_year_ago = datetime.now() - timedelta(days=365)
             recent_divs = divs[divs.index > one_year_ago]
             
-            return recent_divs.sum()
-        except:
-            return 0.0
+            if not recent_divs.empty:
+                return recent_divs.sum()
+            
+            # Method 3: 如果最近 1 年無數據，用最近 4 次派息
+            if len(divs) >= 4:
+                return divs.tail(4).sum()
+            elif len(divs) > 0:
+                # 用最近的 annualize
+                avg_div = divs.tail(min(4, len(divs))).mean()
+                return avg_div * 4  # 假設年派 4 次
+            
+        except Exception as e:
+            print(f"Error fetching dividend for {ticker}: {e}")
+        
+        return 0.0
     
     def get_ttm_dividends(self, tickers):
-        """Get TTM dividends for multiple tickers"""
+        """獲取多隻 ticker 的 TTM 股息"""
         dividends = {}
         for ticker in tickers:
             div = self.get_ttm_dividend(ticker)
@@ -53,7 +77,7 @@ class DataService:
         return dividends
     
     def get_close_n_days_ago(self, ticker, n):
-        """Get close price n trading days ago"""
+        """獲取 n 個交易日前的收市價"""
         try:
             days_to_fetch = max(120, n * 3)
             t = yf.Ticker(ticker)
@@ -67,7 +91,7 @@ class DataService:
             return None
     
     def get_yesterday_close(self, ticker):
-        """Get yesterday's close"""
+        """獲取昨日收市價"""
         try:
             t = yf.Ticker(ticker)
             hist = t.history(period="5d")
@@ -78,7 +102,7 @@ class DataService:
         return None
     
     def get_monthly_high(self, ticker):
-        """Get current month's high"""
+        """獲取當月最高價"""
         try:
             t = yf.Ticker(ticker)
             today = datetime.now()
