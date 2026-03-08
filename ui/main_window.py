@@ -1,7 +1,8 @@
-"""Main application window"""
+"""主視窗"""
 from PySide6.QtWidgets import QMainWindow, QTabWidget, QWidget, QVBoxLayout, QPushButton, QMessageBox
 from PySide6.QtCore import QTimer
 from core.data_service import DataService
+from core.macro_data_service import MacroDataService
 from core.portfolio_engine import PortfolioEngine
 from core.rules_engine import RulesEngine
 from core.config import DEFAULT_SETTINGS, TICKERS
@@ -14,10 +15,11 @@ import os
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Hi5 Portfolio Manager")
+        self.setWindowTitle("Hi5 組合管理系統")
         self.setGeometry(100, 100, 1200, 800)
         
         self.data_service = DataService()
+        self.macro_service = MacroDataService()
         self.portfolio_engine = PortfolioEngine(self.data_service)
         self.rules_engine = RulesEngine(self.data_service)
         
@@ -25,6 +27,7 @@ class MainWindow(QMainWindow):
         
         self.init_ui()
         
+        # Auto-refresh 每 60 秒
         self.timer = QTimer()
         self.timer.timeout.connect(self.refresh_data)
         self.timer.start(60000)
@@ -45,11 +48,11 @@ class MainWindow(QMainWindow):
         self.allocation_tab = AllocationTab(self)
         self.rules_tab = RulesTab(self)
         
-        self.tabs.addTab(self.dashboard_tab, "Dashboard")
-        self.tabs.addTab(self.allocation_tab, "Allocation")
-        self.tabs.addTab(self.rules_tab, "Rules")
+        self.tabs.addTab(self.dashboard_tab, "📊 主控台")
+        self.tabs.addTab(self.allocation_tab, "💼 配置")
+        self.tabs.addTab(self.rules_tab, "⚙️ 規則")
         
-        refresh_btn = QPushButton("Refresh Market Data")
+        refresh_btn = QPushButton("🔄 重新整理市場數據")
         refresh_btn.clicked.connect(self.refresh_data)
         layout.addWidget(refresh_btn)
     
@@ -66,24 +69,34 @@ class MainWindow(QMainWindow):
     def save_settings(self):
         os.makedirs("data", exist_ok=True)
         with open("data/settings.json", 'w') as f:
-            json.dump(self.settings, f, indent=2)
+            json.dump(self.settings, f, indent=2, ensure_ascii=False)
     
     def refresh_data(self):
         try:
+            # 抓 ETF 價格同股息
             self.prices = self.data_service.get_prices(TICKERS)
             self.ttm_dividends = self.data_service.get_ttm_dividends(TICKERS)
             
+            # 抓 RSP 數據（Rule 1）
             self.rsp_yesterday = self.data_service.get_yesterday_close("RSP")
             self.rsp_monthly_high = self.data_service.get_monthly_high("RSP")
             
+            # 抓 IWY / SPMO 40D 數據（Rule 2）
             self.iwy_40d_ago = self.data_service.get_close_n_days_ago("IWY", 40)
             self.spmo_40d_ago = self.data_service.get_close_n_days_ago("SPMO", 40)
+            
+            # 抓宏觀指標
+            macro_signals = self.macro_service.get_all_signals()
+            self.settings['yield_curve_inverted'] = macro_signals['yield_curve_inverted']
+            self.yield_spread = macro_signals['yield_spread']
+            
+            # LEI 同 Sahm 由用戶手動更新，但保留 cached
             
             self.calculate_portfolio()
             self.update_all_tabs()
             
         except Exception as e:
-            QMessageBox.warning(self, "Data Refresh Error", f"Failed to refresh data: {str(e)}")
+            QMessageBox.warning(self, "數據重新整理錯誤", f"無法重新整理數據：{str(e)}")
     
     def calculate_portfolio(self):
         fx_rate = self.settings["fx_rate"]
