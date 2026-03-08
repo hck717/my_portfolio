@@ -9,6 +9,7 @@ from core.config import DEFAULT_SETTINGS, TICKERS
 from ui.dashboard_tab import DashboardTab
 from ui.allocation_tab import AllocationTab
 from ui.rules_tab import RulesTab
+from ui.strategy_tab import StrategyTab
 import json
 import os
 
@@ -16,7 +17,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Hi5 組合管理系統")
-        self.setGeometry(100, 100, 1200, 800)
+        self.setGeometry(100, 100, 1400, 900)
         
         self.data_service = DataService()
         self.macro_service = MacroDataService()
@@ -47,10 +48,12 @@ class MainWindow(QMainWindow):
         self.dashboard_tab = DashboardTab(self)
         self.allocation_tab = AllocationTab(self)
         self.rules_tab = RulesTab(self)
+        self.strategy_tab = StrategyTab(self)
         
         self.tabs.addTab(self.dashboard_tab, "📊 主控台")
         self.tabs.addTab(self.allocation_tab, "💼 配置")
         self.tabs.addTab(self.rules_tab, "⚙️ 規則")
+        self.tabs.addTab(self.strategy_tab, "📋 策略")
         
         refresh_btn = QPushButton("🔄 重新整理市場數據")
         refresh_btn.clicked.connect(self.refresh_data)
@@ -90,9 +93,8 @@ class MainWindow(QMainWindow):
             self.settings['yield_curve_inverted'] = macro_signals['yield_curve_inverted']
             self.yield_spread = macro_signals['yield_spread']
             
-            # LEI 同 Sahm 由用戶手動更新，但保留 cached
-            
             self.calculate_portfolio()
+            self.calculate_investments()
             self.update_all_tabs()
             
         except Exception as e:
@@ -126,6 +128,19 @@ class MainWindow(QMainWindow):
         
         self.allocation = self.portfolio_engine.calculate_allocation(
             self.investable_usd, self.prices
+        )
+    
+    def calculate_investments(self):
+        """計算各規則觸發時的投資金額"""
+        # Rule 1 investments
+        self.rule1_investments = self.rules_engine.calculate_rule1_investments(
+            self.monthly_minimum, self.prices
+        )
+        
+        # Rule 2 investments (使用目標配置中的 BND 市值)
+        bnd_target_value = self.allocation.get("BND", {}).get("target_value_usd", 0)
+        self.rule2_investments = self.rules_engine.calculate_rule2_investments(
+            bnd_target_value, self.prices
         )
     
     def update_all_tabs(self):
