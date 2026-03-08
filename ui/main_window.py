@@ -5,6 +5,7 @@ from core.data_service import DataService
 from core.macro_data_service import MacroDataService
 from core.portfolio_engine import PortfolioEngine
 from core.portfolio_manager import PortfolioManager
+from core.performance_analyzer import PerformanceAnalyzer
 from core.rules_engine import RulesEngine
 from core.config import DEFAULT_SETTINGS, TICKERS
 from ui.dashboard_tab import DashboardTab
@@ -13,6 +14,7 @@ from ui.rules_tab import RulesTab
 from ui.strategy_tab import StrategyTab
 from ui.holdings_tab import HoldingsTab
 from ui.initial_portfolio_tab import InitialPortfolioTab
+from ui.performance_tab import PerformanceTab
 import json
 import os
 
@@ -26,6 +28,7 @@ class MainWindow(QMainWindow):
         self.macro_service = MacroDataService()
         self.portfolio_engine = PortfolioEngine(self.data_service)
         self.portfolio_manager = PortfolioManager()
+        self.performance_analyzer = PerformanceAnalyzer(self.portfolio_manager, self.data_service)
         self.rules_engine = RulesEngine(self.data_service)
         
         self.settings = self.load_settings()
@@ -51,6 +54,7 @@ class MainWindow(QMainWindow):
         
         self.dashboard_tab = DashboardTab(self)
         self.holdings_tab = HoldingsTab(self)
+        self.performance_tab = PerformanceTab(self)
         self.initial_portfolio_tab = InitialPortfolioTab(self)
         self.allocation_tab = AllocationTab(self)
         self.rules_tab = RulesTab(self)
@@ -58,6 +62,7 @@ class MainWindow(QMainWindow):
         
         self.tabs.addTab(self.dashboard_tab, "📊 主控台")
         self.tabs.addTab(self.holdings_tab, "💼 當前持倉")
+        self.tabs.addTab(self.performance_tab, "📈 表現分析")
         self.tabs.addTab(self.initial_portfolio_tab, "🚀 初始建倉")
         self.tabs.addTab(self.allocation_tab, "🎯 目標配置")
         self.tabs.addTab(self.rules_tab, "⚙️ 規則")
@@ -168,6 +173,7 @@ class MainWindow(QMainWindow):
     def update_all_tabs(self):
         self.dashboard_tab.update_display()
         self.holdings_tab.update_display()
+        self.performance_tab.update_display()
         self.initial_portfolio_tab.update_display()
         self.allocation_tab.update_display()
         self.rules_tab.update_display()
