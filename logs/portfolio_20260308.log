@@ -1,0 +1,561 @@
+2026-03-08 16:57:34 - portfolio - INFO - Initializing Hi5 Portfolio Manager
+2026-03-08 16:59:38 - portfolio - INFO - Initializing Hi5 Portfolio Manager
+2026-03-08 16:59:38 - portfolio - INFO - Starting initial data refresh
+2026-03-08 16:59:38 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 16:59:38 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 16:59:39 - portfolio - INFO - Fetched price for IWY: $260.82
+2026-03-08 16:59:39 - portfolio - INFO - Fetched price for SPMO: $118.24
+2026-03-08 16:59:39 - portfolio - INFO - Fetched price for RSP: $198.15
+2026-03-08 16:59:39 - portfolio - INFO - Fetched price for PFF: $31.12
+2026-03-08 16:59:40 - portfolio - INFO - Fetched price for BND: $74.24
+2026-03-08 16:59:40 - portfolio - INFO - Fetched price for BNDW: $68.92
+2026-03-08 16:59:40 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 16:59:40 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 16:59:40 - portfolio - WARNING - Could not fetch dividends for IWY: Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp
+2026-03-08 16:59:40 - portfolio - INFO - IWY dividend: 0.0 (no data)
+2026-03-08 16:59:41 - portfolio - WARNING - Could not fetch dividends for SPMO: Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp
+2026-03-08 16:59:41 - portfolio - INFO - SPMO dividend: 0.0 (no data)
+2026-03-08 16:59:41 - portfolio - INFO - RSP dividend (trailing): 2.01
+2026-03-08 16:59:41 - portfolio - INFO - PFF dividend (trailing): 1.822
+2026-03-08 16:59:42 - portfolio - WARNING - Could not fetch dividends for BND: Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp
+2026-03-08 16:59:42 - portfolio - INFO - BND dividend: 0.0 (no data)
+2026-03-08 16:59:42 - portfolio - WARNING - Could not fetch dividends for BNDW: Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp
+2026-03-08 16:59:42 - portfolio - INFO - BNDW dividend: 0.0 (no data)
+2026-03-08 16:59:42 - portfolio - INFO - Dividends fetched: {'IWY': 0.0, 'SPMO': 0.0, 'RSP': 2.01, 'PFF': 1.822, 'BND': 0.0, 'BNDW': 0.0}
+2026-03-08 16:59:43 - portfolio - INFO - Estimated annual dividend: 704.5270462120346
+2026-03-08 16:59:43 - portfolio - INFO - Monthly minimum: 1058.7105871843362
+2026-03-08 16:59:43 - portfolio - INFO - Rule 1 triggers detected: {'buy1': True, 'buy2': False, 'buy3': False, 'fallback': False}
+2026-03-08 16:59:43 - portfolio - INFO - Notification sent: Rule 1 DCA Triggered - Triggers: buy1
+2026-03-08 16:59:44 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:00:08 - portfolio - INFO - Estimated annual dividend: 704.5270462120346
+2026-03-08 17:00:08 - portfolio - INFO - Monthly minimum: 1058.7105871843362
+2026-03-08 17:00:08 - portfolio - INFO - Settings saved successfully
+2026-03-08 17:00:37 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:00:38 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:00:38 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:00:38 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:00:38 - portfolio - WARNING - Could not fetch dividends for IWY: Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp
+2026-03-08 17:00:38 - portfolio - INFO - IWY dividend: 0.0 (no data)
+2026-03-08 17:00:38 - portfolio - WARNING - Could not fetch dividends for SPMO: Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp
+2026-03-08 17:00:38 - portfolio - INFO - SPMO dividend: 0.0 (no data)
+2026-03-08 17:00:39 - portfolio - WARNING - Could not fetch dividends for BND: Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp
+2026-03-08 17:00:39 - portfolio - INFO - BND dividend: 0.0 (no data)
+2026-03-08 17:00:39 - portfolio - WARNING - Could not fetch dividends for BNDW: Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp
+2026-03-08 17:00:39 - portfolio - INFO - BNDW dividend: 0.0 (no data)
+2026-03-08 17:00:39 - portfolio - INFO - Dividends fetched: {'IWY': 0.0, 'SPMO': 0.0, 'RSP': 2.01, 'PFF': 1.822, 'BND': 0.0, 'BNDW': 0.0}
+2026-03-08 17:00:39 - portfolio - INFO - Estimated annual dividend: 704.5270462120346
+2026-03-08 17:00:39 - portfolio - INFO - Monthly minimum: 1058.7105871843362
+2026-03-08 17:00:39 - portfolio - INFO - Rule 1 triggers detected: {'buy1': True, 'buy2': False, 'buy3': False, 'fallback': False}
+2026-03-08 17:00:39 - portfolio - INFO - Notification sent: Rule 1 DCA Triggered - Triggers: buy1
+2026-03-08 17:00:39 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:01:37 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:01:38 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:01:38 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:01:38 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:01:38 - portfolio - WARNING - Could not fetch dividends for IWY: Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp
+2026-03-08 17:01:38 - portfolio - INFO - IWY dividend: 0.0 (no data)
+2026-03-08 17:01:38 - portfolio - WARNING - Could not fetch dividends for SPMO: Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp
+2026-03-08 17:01:38 - portfolio - INFO - SPMO dividend: 0.0 (no data)
+2026-03-08 17:01:39 - portfolio - WARNING - Could not fetch dividends for BND: Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp
+2026-03-08 17:01:39 - portfolio - INFO - BND dividend: 0.0 (no data)
+2026-03-08 17:01:39 - portfolio - WARNING - Could not fetch dividends for BNDW: Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp
+2026-03-08 17:01:39 - portfolio - INFO - BNDW dividend: 0.0 (no data)
+2026-03-08 17:01:39 - portfolio - INFO - Dividends fetched: {'IWY': 0.0, 'SPMO': 0.0, 'RSP': 2.01, 'PFF': 1.822, 'BND': 0.0, 'BNDW': 0.0}
+2026-03-08 17:01:39 - portfolio - INFO - Estimated annual dividend: 704.5270462120346
+2026-03-08 17:01:39 - portfolio - INFO - Monthly minimum: 1058.7105871843362
+2026-03-08 17:01:39 - portfolio - INFO - Rule 1 triggers detected: {'buy1': True, 'buy2': False, 'buy3': False, 'fallback': False}
+2026-03-08 17:01:39 - portfolio - INFO - Notification sent: Rule 1 DCA Triggered - Triggers: buy1
+2026-03-08 17:01:39 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:04:18 - portfolio - INFO - Initializing Hi5 Portfolio Manager
+2026-03-08 17:04:18 - portfolio - INFO - Starting initial data refresh
+2026-03-08 17:04:18 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:04:18 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:04:19 - portfolio - INFO - Fetched price for IWY: $260.82
+2026-03-08 17:04:19 - portfolio - INFO - Fetched price for SPMO: $118.24
+2026-03-08 17:04:19 - portfolio - INFO - Fetched price for RSP: $198.15
+2026-03-08 17:04:20 - portfolio - INFO - Fetched price for PFF: $31.12
+2026-03-08 17:04:20 - portfolio - INFO - Fetched price for BND: $74.24
+2026-03-08 17:04:20 - portfolio - INFO - Fetched price for BNDW: $68.92
+2026-03-08 17:04:20 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:04:20 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:04:21 - portfolio - INFO - IWY dividend (TTM): 1.005
+2026-03-08 17:04:21 - portfolio - INFO - SPMO dividend (TTM): 0.873
+2026-03-08 17:04:21 - portfolio - INFO - RSP dividend (trailing): 2.01
+2026-03-08 17:04:21 - portfolio - INFO - PFF dividend (trailing): 1.822
+2026-03-08 17:04:22 - portfolio - INFO - BND dividend (TTM): 2.631
+2026-03-08 17:04:22 - portfolio - INFO - BNDW dividend (TTM): 2.6510000000000002
+2026-03-08 17:04:22 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:04:23 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:04:23 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:04:23 - portfolio - INFO - Rule 1 triggers detected: {'buy1': True, 'buy2': False, 'buy3': False, 'fallback': False}
+2026-03-08 17:04:23 - portfolio - INFO - Notification sent: Rule 1 DCA Triggered - Triggers: buy1
+2026-03-08 17:04:24 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:04:52 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:04:52 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:04:52 - portfolio - INFO - Settings saved successfully
+2026-03-08 17:05:17 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:05:18 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:05:18 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:05:18 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:05:18 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:05:18 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:05:18 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:05:18 - portfolio - INFO - Rule 1 triggers detected: {'buy1': True, 'buy2': False, 'buy3': False, 'fallback': False}
+2026-03-08 17:05:18 - portfolio - INFO - Notification sent: Rule 1 DCA Triggered - Triggers: buy1
+2026-03-08 17:05:18 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:06:17 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:06:18 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:06:18 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:06:18 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:06:18 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:06:18 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:06:18 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:06:18 - portfolio - INFO - Rule 1 triggers detected: {'buy1': True, 'buy2': False, 'buy3': False, 'fallback': False}
+2026-03-08 17:06:18 - portfolio - INFO - Notification sent: Rule 1 DCA Triggered - Triggers: buy1
+2026-03-08 17:06:18 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:07:17 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:07:18 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:07:18 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:07:18 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:07:18 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:07:18 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:07:18 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:07:18 - portfolio - INFO - Rule 1 triggers detected: {'buy1': True, 'buy2': False, 'buy3': False, 'fallback': False}
+2026-03-08 17:07:18 - portfolio - INFO - Notification sent: Rule 1 DCA Triggered - Triggers: buy1
+2026-03-08 17:07:18 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:08:17 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:08:18 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:08:18 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:08:18 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:08:18 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:08:18 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:08:18 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:08:18 - portfolio - INFO - Rule 1 triggers detected: {'buy1': True, 'buy2': False, 'buy3': False, 'fallback': False}
+2026-03-08 17:08:18 - portfolio - INFO - Notification sent: Rule 1 DCA Triggered - Triggers: buy1
+2026-03-08 17:08:18 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:09:17 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:09:18 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:09:18 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:09:18 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:09:18 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:09:18 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:09:18 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:09:18 - portfolio - INFO - Rule 1 triggers detected: {'buy1': True, 'buy2': False, 'buy3': False, 'fallback': False}
+2026-03-08 17:09:18 - portfolio - INFO - Notification sent: Rule 1 DCA Triggered - Triggers: buy1
+2026-03-08 17:09:18 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:09:34 - portfolio - INFO - Initializing Hi5 Portfolio Manager
+2026-03-08 17:09:34 - portfolio - INFO - Starting initial data refresh
+2026-03-08 17:09:34 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:09:34 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:09:35 - portfolio - INFO - Fetched price for IWY: $260.82
+2026-03-08 17:09:35 - portfolio - INFO - Fetched price for SPMO: $118.24
+2026-03-08 17:09:35 - portfolio - INFO - Fetched price for RSP: $198.15
+2026-03-08 17:09:36 - portfolio - INFO - Fetched price for PFF: $31.12
+2026-03-08 17:09:36 - portfolio - INFO - Fetched price for BND: $74.24
+2026-03-08 17:09:36 - portfolio - INFO - Fetched price for BNDW: $68.92
+2026-03-08 17:09:36 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:09:36 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:09:37 - portfolio - INFO - IWY dividend (TTM): 1.005
+2026-03-08 17:09:37 - portfolio - INFO - SPMO dividend (TTM): 0.873
+2026-03-08 17:09:38 - portfolio - INFO - RSP dividend (trailing): 2.01
+2026-03-08 17:09:38 - portfolio - INFO - PFF dividend (trailing): 1.822
+2026-03-08 17:09:38 - portfolio - INFO - BND dividend (TTM): 2.631
+2026-03-08 17:09:39 - portfolio - INFO - BNDW dividend (TTM): 2.6510000000000002
+2026-03-08 17:09:39 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:09:40 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:09:40 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:09:40 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:10:34 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:10:35 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:10:35 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:10:35 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:10:35 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:10:35 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:10:35 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:10:35 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:11:34 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:11:35 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:11:35 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:11:35 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:11:35 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:11:35 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:11:35 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:11:35 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:16:25 - portfolio - INFO - Initializing Hi5 Portfolio Manager
+2026-03-08 17:16:25 - portfolio - INFO - Starting initial data refresh
+2026-03-08 17:16:25 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:16:25 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:16:25 - portfolio - INFO - Fetched price for IWY: $260.82
+2026-03-08 17:16:26 - portfolio - INFO - Fetched price for SPMO: $118.24
+2026-03-08 17:16:26 - portfolio - INFO - Fetched price for RSP: $198.15
+2026-03-08 17:16:26 - portfolio - INFO - Fetched price for PFF: $31.12
+2026-03-08 17:16:26 - portfolio - INFO - Fetched price for BND: $74.24
+2026-03-08 17:16:27 - portfolio - INFO - Fetched price for BNDW: $68.92
+2026-03-08 17:16:27 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:16:27 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:16:27 - portfolio - INFO - IWY dividend (TTM): 1.005
+2026-03-08 17:16:28 - portfolio - INFO - SPMO dividend (TTM): 0.873
+2026-03-08 17:16:28 - portfolio - INFO - RSP dividend (trailing): 2.01
+2026-03-08 17:16:28 - portfolio - INFO - PFF dividend (trailing): 1.822
+2026-03-08 17:16:28 - portfolio - INFO - BND dividend (TTM): 2.631
+2026-03-08 17:16:29 - portfolio - INFO - BNDW dividend (TTM): 2.6510000000000002
+2026-03-08 17:16:29 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:16:31 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:16:31 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:16:34 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:16:39 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:16:39 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:16:39 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:16:39 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:16:39 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:16:39 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:16:39 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:16:39 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:16:39 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:16:39 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:16:39 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:16:39 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:16:39 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:16:39 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:16:39 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:16:39 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:16:39 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:16:40 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:16:40 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:16:40 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:16:40 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:16:40 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:16:40 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:16:40 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:17:24 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:17:25 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:17:25 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:17:25 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:17:25 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:17:25 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:17:25 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:17:25 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:18:02 - portfolio - WARNING - All data has been reset by user
+2026-03-08 17:18:02 - portfolio - INFO - Notification sent: Data Reset - All portfolio data has been cleared
+2026-03-08 17:18:24 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:18:25 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:18:25 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:18:25 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:18:25 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:18:25 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:18:25 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:18:25 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:19:24 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:19:25 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:19:25 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:19:25 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:19:25 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:19:25 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:19:25 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:19:25 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:20:24 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:20:25 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:20:25 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:20:25 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:20:25 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:20:25 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:20:25 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:20:25 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:21:24 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:21:25 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:21:25 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:21:25 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:21:25 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:21:25 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:21:25 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:21:25 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:22:24 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:22:25 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:22:25 - portfolio - INFO - Fetched price for IWY: $260.82
+2026-03-08 17:22:25 - portfolio - INFO - Fetched price for SPMO: $118.24
+2026-03-08 17:22:25 - portfolio - INFO - Fetched price for RSP: $198.15
+2026-03-08 17:22:26 - portfolio - INFO - Fetched price for PFF: $31.12
+2026-03-08 17:22:26 - portfolio - INFO - Fetched price for BND: $74.24
+2026-03-08 17:22:26 - portfolio - INFO - Fetched price for BNDW: $68.92
+2026-03-08 17:22:26 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:22:26 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:22:27 - portfolio - INFO - IWY dividend (TTM): 1.005
+2026-03-08 17:22:27 - portfolio - INFO - SPMO dividend (TTM): 0.873
+2026-03-08 17:22:27 - portfolio - INFO - RSP dividend (trailing): 2.01
+2026-03-08 17:22:28 - portfolio - INFO - PFF dividend (trailing): 1.822
+2026-03-08 17:22:28 - portfolio - INFO - BND dividend (TTM): 2.631
+2026-03-08 17:22:28 - portfolio - INFO - BNDW dividend (TTM): 2.6510000000000002
+2026-03-08 17:22:28 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:22:29 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:22:29 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:22:29 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:23:24 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:23:25 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:23:25 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:23:25 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:23:25 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:23:25 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:23:25 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:23:25 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:24:24 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:24:25 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:24:25 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:24:25 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:24:25 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:24:25 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:24:25 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:24:25 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:25:24 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:25:25 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:25:25 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:25:25 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:25:25 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:25:25 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:25:25 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:25:25 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:26:24 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:26:25 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:26:25 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:26:25 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:26:25 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:26:25 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:26:25 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:26:25 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:27:24 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:27:25 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:27:25 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:27:25 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:27:25 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:27:25 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:27:25 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:27:25 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:28:24 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:28:25 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:28:25 - portfolio - INFO - Fetched price for IWY: $260.82
+2026-03-08 17:28:25 - portfolio - INFO - Fetched price for SPMO: $118.24
+2026-03-08 17:28:26 - portfolio - INFO - Fetched price for RSP: $198.15
+2026-03-08 17:28:26 - portfolio - INFO - Fetched price for PFF: $31.12
+2026-03-08 17:28:26 - portfolio - INFO - Fetched price for BND: $74.24
+2026-03-08 17:28:27 - portfolio - INFO - Fetched price for BNDW: $68.92
+2026-03-08 17:28:27 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:28:27 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:28:27 - portfolio - INFO - IWY dividend (TTM): 1.005
+2026-03-08 17:28:28 - portfolio - INFO - SPMO dividend (TTM): 0.873
+2026-03-08 17:28:28 - portfolio - INFO - RSP dividend (trailing): 2.01
+2026-03-08 17:28:28 - portfolio - INFO - PFF dividend (trailing): 1.822
+2026-03-08 17:28:29 - portfolio - INFO - BND dividend (TTM): 2.631
+2026-03-08 17:28:29 - portfolio - INFO - BNDW dividend (TTM): 2.6510000000000002
+2026-03-08 17:28:29 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:28:30 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:28:30 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:28:30 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:29:24 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:29:25 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:29:25 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:29:25 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:29:25 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:29:25 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:29:25 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:29:25 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:30:24 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:30:25 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:30:25 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:30:25 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:30:25 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:30:25 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:30:25 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:30:25 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:31:24 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:31:25 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:31:25 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:31:25 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:31:25 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:31:25 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:31:25 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:31:25 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:32:24 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:32:25 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:32:25 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:32:25 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:32:25 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:32:25 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:32:25 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:32:25 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:33:24 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:33:25 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:33:25 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:33:25 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:33:25 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:33:25 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:33:25 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:33:25 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:40:47 - portfolio - INFO - Initializing Hi5 Portfolio Manager
+2026-03-08 17:40:47 - portfolio - INFO - Starting initial data refresh
+2026-03-08 17:40:47 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:40:47 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:40:47 - portfolio - INFO - Fetched price for IWY: $260.82
+2026-03-08 17:40:48 - portfolio - INFO - Fetched price for SPMO: $118.24
+2026-03-08 17:40:48 - portfolio - INFO - Fetched price for RSP: $198.15
+2026-03-08 17:40:48 - portfolio - INFO - Fetched price for PFF: $31.12
+2026-03-08 17:40:48 - portfolio - INFO - Fetched price for BND: $74.24
+2026-03-08 17:40:49 - portfolio - INFO - Fetched price for BNDW: $68.92
+2026-03-08 17:40:49 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:40:49 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:40:49 - portfolio - INFO - IWY dividend (TTM): 1.005
+2026-03-08 17:40:50 - portfolio - INFO - SPMO dividend (TTM): 0.873
+2026-03-08 17:40:50 - portfolio - INFO - RSP dividend (trailing): 2.01
+2026-03-08 17:40:50 - portfolio - INFO - PFF dividend (trailing): 1.822
+2026-03-08 17:40:51 - portfolio - INFO - BND dividend (TTM): 2.631
+2026-03-08 17:40:51 - portfolio - INFO - BNDW dividend (TTM): 2.6510000000000002
+2026-03-08 17:40:51 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:40:52 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:40:52 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:40:52 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:41:46 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:41:47 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:41:47 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:41:47 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:41:47 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:41:47 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:41:47 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:41:47 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:42:10 - portfolio - INFO - Initializing Hi5 Portfolio Manager
+2026-03-08 17:42:10 - portfolio - INFO - Starting initial data refresh
+2026-03-08 17:42:10 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:42:10 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:42:11 - portfolio - INFO - Fetched price for IWY: $260.82
+2026-03-08 17:42:11 - portfolio - INFO - Fetched price for SPMO: $118.24
+2026-03-08 17:42:11 - portfolio - INFO - Fetched price for RSP: $198.15
+2026-03-08 17:42:12 - portfolio - INFO - Fetched price for PFF: $31.12
+2026-03-08 17:42:12 - portfolio - INFO - Fetched price for BND: $74.24
+2026-03-08 17:42:12 - portfolio - INFO - Fetched price for BNDW: $68.92
+2026-03-08 17:42:12 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:42:12 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:42:13 - portfolio - INFO - IWY dividend (TTM): 1.005
+2026-03-08 17:42:13 - portfolio - INFO - SPMO dividend (TTM): 0.873
+2026-03-08 17:42:13 - portfolio - INFO - RSP dividend (trailing): 2.01
+2026-03-08 17:42:14 - portfolio - INFO - PFF dividend (trailing): 1.822
+2026-03-08 17:42:14 - portfolio - INFO - BND dividend (TTM): 2.631
+2026-03-08 17:42:15 - portfolio - INFO - BNDW dividend (TTM): 2.6510000000000002
+2026-03-08 17:42:15 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:42:16 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:42:16 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:42:16 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:57:12 - portfolio - INFO - Initializing Hi5 Portfolio Manager
+2026-03-08 17:57:12 - portfolio - INFO - Starting initial data refresh
+2026-03-08 17:57:12 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:57:13 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:57:13 - portfolio - INFO - Fetched price for IWY: $260.82
+2026-03-08 17:57:14 - portfolio - INFO - Fetched price for SPMO: $118.24
+2026-03-08 17:57:14 - portfolio - INFO - Fetched price for RSP: $198.15
+2026-03-08 17:57:14 - portfolio - INFO - Fetched price for PFF: $31.12
+2026-03-08 17:57:15 - portfolio - INFO - Fetched price for BND: $74.24
+2026-03-08 17:57:15 - portfolio - INFO - Fetched price for BNDW: $68.92
+2026-03-08 17:57:15 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:57:15 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:57:15 - portfolio - INFO - IWY dividend (TTM): 1.005
+2026-03-08 17:57:16 - portfolio - INFO - SPMO dividend (TTM): 0.873
+2026-03-08 17:57:16 - portfolio - INFO - RSP dividend (trailing): 2.01
+2026-03-08 17:57:16 - portfolio - INFO - PFF dividend (trailing): 1.822
+2026-03-08 17:57:17 - portfolio - INFO - BND dividend (TTM): 2.631
+2026-03-08 17:57:17 - portfolio - INFO - BNDW dividend (TTM): 2.6510000000000002
+2026-03-08 17:57:17 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:57:18 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:57:18 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:57:19 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 17:58:12 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 17:58:13 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 17:58:13 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 17:58:13 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 17:58:13 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 17:58:13 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 17:58:13 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 17:58:13 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 18:01:16 - portfolio - INFO - Initializing Hi5 Portfolio Manager
+2026-03-08 18:01:16 - portfolio - INFO - Starting initial data refresh
+2026-03-08 18:01:16 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 18:01:16 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 18:01:17 - portfolio - INFO - Fetched price for IWY: $260.82
+2026-03-08 18:01:17 - portfolio - INFO - Fetched price for SPMO: $118.24
+2026-03-08 18:01:18 - portfolio - INFO - Fetched price for RSP: $198.15
+2026-03-08 18:01:18 - portfolio - INFO - Fetched price for PFF: $31.12
+2026-03-08 18:01:18 - portfolio - INFO - Fetched price for BND: $74.24
+2026-03-08 18:01:18 - portfolio - INFO - Fetched price for BNDW: $68.92
+2026-03-08 18:01:18 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 18:01:18 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 18:01:19 - portfolio - INFO - IWY dividend (TTM): 1.005
+2026-03-08 18:01:19 - portfolio - INFO - SPMO dividend (TTM): 0.873
+2026-03-08 18:01:20 - portfolio - INFO - RSP dividend (trailing): 2.01
+2026-03-08 18:01:20 - portfolio - INFO - PFF dividend (trailing): 1.822
+2026-03-08 18:01:20 - portfolio - INFO - BND dividend (TTM): 2.631
+2026-03-08 18:01:21 - portfolio - INFO - BNDW dividend (TTM): 2.6510000000000002
+2026-03-08 18:01:21 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 18:01:22 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 18:01:22 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 18:01:22 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 18:02:16 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 18:02:17 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 18:02:17 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 18:02:17 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 18:02:17 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 18:02:17 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 18:02:17 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 18:02:17 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 18:56:06 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 18:56:06 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 18:56:07 - portfolio - INFO - Fetched price for IWY: $260.82
+2026-03-08 18:56:07 - portfolio - INFO - Fetched price for SPMO: $118.24
+2026-03-08 18:56:07 - portfolio - INFO - Fetched price for RSP: $198.15
+2026-03-08 18:56:08 - portfolio - INFO - Fetched price for PFF: $31.12
+2026-03-08 18:56:08 - portfolio - INFO - Fetched price for BND: $74.24
+2026-03-08 18:56:08 - portfolio - INFO - Fetched price for BNDW: $68.92
+2026-03-08 18:56:08 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 18:56:08 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 18:56:09 - portfolio - INFO - IWY dividend (TTM): 1.005
+2026-03-08 18:56:09 - portfolio - INFO - SPMO dividend (TTM): 0.873
+2026-03-08 18:56:09 - portfolio - INFO - RSP dividend (trailing): 2.01
+2026-03-08 18:56:10 - portfolio - INFO - PFF dividend (trailing): 1.822
+2026-03-08 18:56:11 - portfolio - INFO - BND dividend (TTM): 2.631
+2026-03-08 18:56:12 - portfolio - INFO - BNDW dividend (TTM): 2.6510000000000002
+2026-03-08 18:56:12 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 18:56:13 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 18:56:13 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 18:56:13 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 22:03:19 - portfolio - INFO - Initializing Hi5 Portfolio Manager
+2026-03-08 22:03:19 - portfolio - INFO - Starting initial data refresh
+2026-03-08 22:03:19 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 22:03:20 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 22:03:20 - portfolio - INFO - Fetched price for IWY: $260.82
+2026-03-08 22:03:20 - portfolio - INFO - Fetched price for SPMO: $118.24
+2026-03-08 22:03:21 - portfolio - INFO - Fetched price for RSP: $198.15
+2026-03-08 22:03:21 - portfolio - INFO - Fetched price for PFF: $31.12
+2026-03-08 22:03:21 - portfolio - INFO - Fetched price for BND: $74.24
+2026-03-08 22:03:21 - portfolio - INFO - Fetched price for BNDW: $68.92
+2026-03-08 22:03:21 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 22:03:21 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 22:03:22 - portfolio - INFO - IWY dividend (TTM): 1.005
+2026-03-08 22:03:22 - portfolio - INFO - SPMO dividend (TTM): 0.873
+2026-03-08 22:03:23 - portfolio - INFO - RSP dividend (trailing): 2.01
+2026-03-08 22:03:23 - portfolio - INFO - PFF dividend (trailing): 1.822
+2026-03-08 22:03:23 - portfolio - INFO - BND dividend (TTM): 2.631
+2026-03-08 22:03:24 - portfolio - INFO - BNDW dividend (TTM): 2.6510000000000002
+2026-03-08 22:03:24 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 22:03:26 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 22:03:26 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 22:03:27 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 22:04:19 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 22:04:20 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 22:04:20 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 22:04:20 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 22:04:20 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 22:04:20 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 22:04:20 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 22:04:20 - portfolio - INFO - === Refresh Complete ===
+2026-03-08 22:05:19 - portfolio - INFO - === Refreshing Data ===
+2026-03-08 22:05:20 - portfolio - INFO - Fetching ETF prices...
+2026-03-08 22:05:20 - portfolio - INFO - Prices fetched: 6 tickers
+2026-03-08 22:05:20 - portfolio - INFO - Fetching ETF dividends...
+2026-03-08 22:05:20 - portfolio - INFO - Dividends fetched: {'IWY': 1.005, 'SPMO': 0.873, 'RSP': 2.01, 'PFF': 1.822, 'BND': 2.631, 'BNDW': 2.6510000000000002}
+2026-03-08 22:05:20 - portfolio - INFO - Estimated annual dividend: 1198.768307645578
+2026-03-08 22:05:20 - portfolio - INFO - Monthly minimum: 1099.897358970465
+2026-03-08 22:05:20 - portfolio - INFO - === Refresh Complete ===

@@ -1,8 +1,11 @@
-"""當前持倉頁面"""
-from PySide6.QtWidgets import (QWidget, QVBoxLayout, QTableWidget, QTableWidgetItem,
-                               QHeaderView, QLabel, QPushButton)
+"""當前持倉頁面 - with filters and export"""
+from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QTableWidget, QTableWidgetItem,
+                               QHeaderView, QLabel, QPushButton, QComboBox, QLineEdit,
+                               QGroupBox, QFormLayout, QMessageBox)
 from PySide6.QtCore import Qt
 from core.config import TARGET_WEIGHTS
+from core.export_service import ExportService
+from core.logger import logger
 
 class HoldingsTab(QWidget):
     def __init__(self, main_window):
@@ -14,9 +17,16 @@ class HoldingsTab(QWidget):
         layout = QVBoxLayout()
         self.setLayout(layout)
         
-        title = QLabel("📊 當前持倉 (Current Holdings)")
+        title = QLabel("Current Holdings")
         title.setStyleSheet("font-size: 16px; font-weight: bold;")
         layout.addWidget(title)
+        
+        export_layout = QHBoxLayout()
+        export_btn = QPushButton("Export Holdings to CSV")
+        export_btn.clicked.connect(self.export_holdings)
+        export_layout.addWidget(export_btn)
+        export_layout.addStretch()
+        layout.addLayout(export_layout)
         
         self.summary_label = QLabel()
         self.summary_label.setStyleSheet("font-size: 14px; margin: 10px;")
@@ -25,12 +35,26 @@ class HoldingsTab(QWidget):
         self.table = QTableWidget()
         self.table.setColumnCount(11)
         self.table.setHorizontalHeaderLabels([
-            "Ticker", "持有股數", "平均成本", "成本基礎", 
-            "當前價格", "當前市值", "實際權重", "目標權重", 
-            "權重偏離", "盈虧 (USD)", "盈虧 (%)"
+            "Ticker", "Shares", "Avg Cost", "Cost Basis", 
+            "Current Price", "Current Value", "Actual Wgt", "Target Wgt", 
+            "Deviation", "PnL (USD)", "PnL (%)"
         ])
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         layout.addWidget(self.table)
+    
+    def export_holdings(self):
+        try:
+            holdings = self.main_window.portfolio_manager.get_holdings()
+            prices = getattr(self.main_window, 'prices', {})
+            
+            filename = ExportService.export_holdings(holdings, prices)
+            
+            QMessageBox.information(self, "Export Complete", f"Exported to:\n{filename}")
+            logger.info(f"Holdings exported to {filename}")
+            
+        except Exception as e:
+            logger.error(f"Failed to export holdings: {e}")
+            QMessageBox.critical(self, "Export Error", str(e))
     
     def update_display(self):
         holdings_data = self.main_window.portfolio_manager.get_holdings_with_current_value(
@@ -62,7 +86,6 @@ class HoldingsTab(QWidget):
             
             row += 1
         
-        # Second pass to calculate actual weights
         row = 0
         for ticker, data in sorted(holdings_data.items()):
             actual_weight = data['current_value'] / total_value if total_value > 0 else 0
@@ -73,7 +96,7 @@ class HoldingsTab(QWidget):
             target_weight_item = QTableWidgetItem(f"{target_weight*100:.0f}%")
             deviation_item = QTableWidgetItem(f"{weight_deviation*100:+.2f}%")
             
-            if abs(weight_deviation) > 0.02:  # > 2% deviation
+            if abs(weight_deviation) > 0.02:
                 deviation_item.setForeground(Qt.red)
             else:
                 deviation_item.setForeground(Qt.green)
@@ -100,8 +123,8 @@ class HoldingsTab(QWidget):
         total_pnl_pct = (total_pnl / total_cost * 100) if total_cost > 0 else 0
         
         summary_text = f"""
-        💰 總成本: ${total_cost:,.2f} | 📊 總市值: ${total_value:,.2f} | 
-        📈 總盈虧: ${total_pnl:,.2f} ({total_pnl_pct:+.2f}%)
+        Total Cost: ${total_cost:,.2f} | Current Value: ${total_value:,.2f} | 
+        Total PnL: ${total_pnl:,.2f} ({total_pnl_pct:+.2f}%)
         """
         
         self.summary_label.setText(summary_text)

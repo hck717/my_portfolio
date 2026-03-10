@@ -1,35 +1,124 @@
-"""市場數據服務 (yfinance)"""
+"""市場數據服務 (yfinance) - with retry, cache, and offline support"""
 import yfinance as yf
 import pandas as pd
 from datetime import datetime, timedelta
+from typing import Optional, Dict, List
+import time
+import warnings
+import requests
+from core.logger import logger
+from core.env_config import get_config
+
+warnings.filterwarnings('ignore')
+
+config = get_config()
+
+class CacheEntry:
+    """Cache entry with TTL"""
+    def __init__(self, value, ttl: int):
+        self.value = value
+        self.timestamp = time.time()
+        self.ttl = ttl
+    
+    def is_valid(self) -> bool:
+        return time.time() - self.timestamp < self.ttl
 
 class DataService:
-    def __init__(self):
-        self.cache = {}
-        self.cache_time = {}
+    """Market data service with caching, retry, and offline support"""
     
-    def get_price(self, ticker):
-        """獲取目前價格"""
+    def __init__(self):
+        self.cache: Dict[str, CacheEntry] = {}
+        self.cache_ttl = config.CACHE_TTL_SECONDS
+        self.max_retries = config.MAX_RETRIES
+        self.retry_delay = config.RETRY_DELAY_SECONDS
+        self._offline_mode = False
+        self._last_successful_fetch: Optional[datetime] = None
+    
+    def is_online(self) -> bool:
+        """Check if network is available"""
+        if self._offline_mode:
+            return False
         try:
+            requests.get("https://www.google.com", timeout=5)
+            return True
+        except:
+            self._offline_mode = True
+            logger.warning("Network unavailable, switching to offline mode")
+            return False
+    
+    def get_from_cache(self, key: str) -> Optional[any]:
+        """Get value from cache if valid"""
+        if key in self.cache:
+            entry = self.cache[key]
+            if entry.is_valid():
+                return entry.value
+            else:
+                del self.cache[key]
+        return None
+    
+    def set_cache(self, key: str, value: any):
+        """Set cache with TTL"""
+        self.cache[key] = CacheEntry(value, self.cache_ttl)
+    
+    def clear_cache(self):
+        """Clear all cache"""
+        self.cache.clear()
+        logger.info("Cache cleared")
+    
+    def _fetch_with_retry(self, fetch_func, *args, **kwargs):
+        """Execute fetch function with retry logic"""
+        last_error = None
+        
+        for attempt in range(self.max_retries):
+            try:
+                return fetch_func(*args, **kwargs)
+            except Exception as e:
+                last_error = e
+                if attempt < self.max_retries - 1:
+                    logger.warning(f"Attempt {attempt + 1} failed: {e}, retrying in {self.retry_delay}s...")
+                    time.sleep(self.retry_delay)
+                continue
+        
+        logger.error(f"All {self.max_retries} attempts failed: {last_error}")
+        return None
+    
+    def get_price(self, ticker: str) -> Optional[float]:
+        """Get current price with caching and retry"""
+        cache_key = f"price_{ticker}"
+        
+        cached = self.get_from_cache(cache_key)
+        if cached is not None:
+            return cached
+        
+        if not self.is_online():
+            logger.warning(f"Offline mode: cannot fetch price for {ticker}")
+            return None
+        
+        def fetch():
             t = yf.Ticker(ticker)
-            # 試用 fast_info 先
             try:
                 price = t.fast_info['lastPrice']
                 if price and price > 0:
-                    return price
+                    return float(price)
             except:
                 pass
             
-            # Fallback to history
             data = t.history(period="1d")
-            if not data.empty:
-                return data['Close'].iloc[-1]
-        except Exception as e:
-            print(f"Error fetching price for {ticker}: {e}")
-        return None
+            if data is not None and not data.empty:
+                return float(data['Close'].iloc[-1])
+            return None
+        
+        price = self._fetch_with_retry(fetch)
+        
+        if price is not None:
+            self.set_cache(cache_key, price)
+            self._last_successful_fetch = datetime.now()
+            logger.info(f"Fetched price for {ticker}: ${price:.2f}")
+        
+        return price
     
-    def get_prices(self, tickers):
-        """獲取多隻 ticker 價格"""
+    def get_prices(self, tickers: List[str]) -> Dict[str, float]:
+        """Get multiple ticker prices"""
         prices = {}
         for ticker in tickers:
             price = self.get_price(ticker)
@@ -37,108 +126,190 @@ class DataService:
                 prices[ticker] = price
         return prices
     
-    def get_ttm_dividend(self, ticker):
-        """獲取過去 12 個月每股股息 - 使用 ticker.info 更穩定"""
-        try:
-            t = yf.Ticker(ticker)
-            info = t.info
-            
-            # Method 1: trailingAnnualDividendRate (最可靠)
-            if 'trailingAnnualDividendRate' in info and info['trailingAnnualDividendRate']:
-                rate = info['trailingAnnualDividendRate']
-                if rate > 0:
-                    print(f"{ticker} dividend (trailingAnnualDividendRate): {rate}")
-                    return rate
-            
-            # Method 2: dividendRate (forward dividend)
-            if 'dividendRate' in info and info['dividendRate']:
-                rate = info['dividendRate']
-                if rate > 0:
-                    print(f"{ticker} dividend (dividendRate): {rate}")
-                    return rate
-            
-            # Method 3: dividendYield * price
-            if 'dividendYield' in info and info['dividendYield']:
-                div_yield = info['dividendYield']
-                if 'currentPrice' in info and info['currentPrice']:
-                    estimated_div = div_yield * info['currentPrice']
-                    if estimated_div > 0:
-                        print(f"{ticker} dividend (yield * price): {estimated_div}")
-                        return estimated_div
-            
-            # Method 4: 計算過去 365 天實際派息 (FIX timezone issue)
-            divs = t.dividends
-            if not divs.empty:
-                # Convert to timezone-naive
-                one_year_ago = pd.Timestamp.now() - pd.Timedelta(days=365)
-                one_year_ago = one_year_ago.tz_localize(None)  # Remove timezone
+    def get_ttm_dividend(self, ticker: str, max_retries: int = None) -> float:
+        """Get TTM dividend with retry"""
+        if max_retries is None:
+            max_retries = self.max_retries
+        
+        cache_key = f"dividend_{ticker}"
+        
+        cached = self.get_from_cache(cache_key)
+        if cached is not None:
+            return cached
+        
+        if not self.is_online():
+            logger.warning(f"Offline mode: cannot fetch dividend for {ticker}")
+            return 0.0
+        
+        for attempt in range(max_retries):
+            try:
+                t = yf.Ticker(ticker)
                 
-                # Make divs index timezone-naive
-                divs.index = divs.index.tz_localize(None)
+                try:
+                    info = t.info
+                except Exception as info_err:
+                    if attempt < max_retries - 1:
+                        time.sleep(1)
+                        continue
+                    logger.warning(f"Could not fetch info for {ticker}: {info_err}")
+                    info = {}
                 
-                recent_divs = divs[divs.index > one_year_ago]
+                if 'trailingAnnualDividendRate' in info and info['trailingAnnualDividendRate']:
+                    rate = info['trailingAnnualDividendRate']
+                    if rate > 0:
+                        logger.info(f"{ticker} dividend (trailing): {rate}")
+                        self.set_cache(cache_key, float(rate))
+                        return float(rate)
                 
-                if not recent_divs.empty:
-                    ttm_div = recent_divs.sum()
-                    print(f"{ticker} dividend (TTM actual): {ttm_div}")
-                    return ttm_div
+                if 'dividendRate' in info and info['dividendRate']:
+                    rate = info['dividendRate']
+                    if rate > 0:
+                        logger.info(f"{ticker} dividend (rate): {rate}")
+                        self.set_cache(cache_key, float(rate))
+                        return float(rate)
                 
-                # Fallback: 用最近 4 次 annualize
-                if len(divs) >= 4:
-                    last_4 = divs.tail(4).sum()
-                    print(f"{ticker} dividend (last 4): {last_4}")
-                    return last_4
-            
-            print(f"{ticker} dividend: 0.0 (no data found)")
-            
-        except Exception as e:
-            print(f"Error fetching dividend for {ticker}: {e}")
+                if 'dividendYield' in info and info['dividendYield']:
+                    div_yield = info['dividendYield']
+                    if 'currentPrice' in info and info['currentPrice']:
+                        estimated_div = div_yield * info['currentPrice']
+                        if estimated_div > 0:
+                            logger.info(f"{ticker} dividend (yield*price): {estimated_div}")
+                            self.set_cache(cache_key, float(estimated_div))
+                            return float(estimated_div)
+                
+                try:
+                    divs = t.dividends
+                    if divs is not None and len(divs) > 0:
+                        divs_index = pd.DatetimeIndex(divs.index).tz_localize(None)
+                        one_year_ago = pd.Timestamp.now() - pd.Timedelta(days=365)
+                        
+                        recent_divs = divs[divs_index > one_year_ago]
+                        
+                        if len(recent_divs) > 0:
+                            ttm_div = recent_divs.sum()
+                            logger.info(f"{ticker} dividend (TTM): {ttm_div}")
+                            self.set_cache(cache_key, float(ttm_div))
+                            return float(ttm_div)
+                        
+                        if len(divs) >= 4:
+                            last_4 = divs.tail(4).sum()
+                            logger.info(f"{ticker} dividend (last 4): {last_4}")
+                            self.set_cache(cache_key, float(last_4))
+                            return float(last_4)
+                except Exception as div_err:
+                    logger.warning(f"Could not fetch dividends for {ticker}: {div_err}")
+                
+                logger.info(f"{ticker} dividend: 0.0 (no data)")
+                return 0.0
+                
+            except Exception as e:
+                if attempt < max_retries - 1:
+                    time.sleep(1)
+                    continue
+                logger.error(f"Error fetching dividend for {ticker}: {e}")
         
         return 0.0
     
-    def get_ttm_dividends(self, tickers):
-        """獲取多隻 ticker 的 TTM 股息"""
+    def get_ttm_dividends(self, tickers: List[str]) -> Dict[str, float]:
+        """Get multiple ticker dividends"""
         dividends = {}
         for ticker in tickers:
-            div = self.get_ttm_dividend(ticker)
-            dividends[ticker] = div
+            dividends[ticker] = self.get_ttm_dividend(ticker)
         return dividends
     
-    def get_close_n_days_ago(self, ticker, n):
-        """獲取 n 個交易日前的收市價"""
-        try:
+    def get_close_n_days_ago(self, ticker: str, n: int) -> Optional[float]:
+        """Get close price n days ago"""
+        cache_key = f"close_{ticker}_{n}"
+        
+        cached = self.get_from_cache(cache_key)
+        if cached is not None:
+            return cached
+        
+        if not self.is_online():
+            return None
+        
+        def fetch():
             days_to_fetch = max(120, n * 3)
             t = yf.Ticker(ticker)
             hist = t.history(period=f"{days_to_fetch}d")
             
-            if len(hist) <= n:
+            if hist is None or len(hist) <= n:
                 return None
             
-            return hist['Close'].iloc[-(n+1)]
-        except:
-            return None
+            return float(hist['Close'].iloc[-(n+1)])
+        
+        price = self._fetch_with_retry(fetch)
+        
+        if price is not None:
+            self.set_cache(cache_key, price)
+        
+        return price
     
-    def get_yesterday_close(self, ticker):
-        """獲取昨日收市價"""
-        try:
+    def get_yesterday_close(self, ticker: str) -> Optional[float]:
+        """Get yesterday's close price"""
+        cache_key = f"yesterday_{ticker}"
+        
+        cached = self.get_from_cache(cache_key)
+        if cached is not None:
+            return cached
+        
+        if not self.is_online():
+            return None
+        
+        def fetch():
             t = yf.Ticker(ticker)
             hist = t.history(period="5d")
-            if len(hist) >= 2:
-                return hist['Close'].iloc[-2]
-        except:
-            pass
-        return None
+            if hist is not None and len(hist) >= 2:
+                return float(hist['Close'].iloc[-2])
+            return None
+        
+        price = self._fetch_with_retry(fetch)
+        
+        if price is not None:
+            self.set_cache(cache_key, price)
+        
+        return price
     
-    def get_monthly_high(self, ticker):
-        """獲取當月最高價"""
-        try:
+    def get_monthly_high(self, ticker: str) -> Optional[float]:
+        """Get monthly high price"""
+        cache_key = f"monthly_high_{ticker}"
+        
+        cached = self.get_from_cache(cache_key)
+        if cached is not None:
+            return cached
+        
+        if not self.is_online():
+            return None
+        
+        def fetch():
             t = yf.Ticker(ticker)
             today = datetime.now()
             start_of_month = today.replace(day=1)
             hist = t.history(start=start_of_month)
             
-            if not hist.empty:
-                return hist['High'].max()
-        except:
-            pass
-        return None
+            if hist is not None and not hist.empty:
+                return float(hist['High'].max())
+            return None
+        
+        price = self._fetch_with_retry(fetch)
+        
+        if price is not None:
+            self.set_cache(cache_key, price)
+        
+        return price
+    
+    def get_historical_prices(self, ticker: str, start_date: str, end_date: str = None) -> Optional[pd.DataFrame]:
+        """Get historical price data"""
+        if end_date is None:
+            end_date = datetime.now().strftime('%Y-%m-%d')
+        
+        if not self.is_online():
+            logger.warning(f"Offline mode: cannot fetch historical data for {ticker}")
+            return None
+        
+        def fetch():
+            t = yf.Ticker(ticker)
+            hist = t.history(start=start_date, end=end_date)
+            return hist
+        
+        return self._fetch_with_retry(fetch)

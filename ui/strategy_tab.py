@@ -12,122 +12,114 @@ class StrategyTab(QWidget):
         layout = QVBoxLayout()
         self.setLayout(layout)
         
-        title = QLabel("📋 Hi5 投資策略完整規則")
-        title.setStyleSheet("font-size: 18px; font-weight: bold; margin: 10px;")
+        title = QLabel("Hi5 投資策略 (Investment Strategy)")
+        title.setStyleSheet("font-size: 16px; font-weight: bold; margin: 10px;")
         layout.addWidget(title)
         
         rules_text = QTextEdit()
         rules_text.setReadOnly(True)
-        rules_text.setStyleSheet("font-size: 13px; line-height: 1.6;")
+        rules_text.setStyleSheet("font-size: 12px; line-height: 1.5;")
         
         rules_content = """
-🎯 核心一頁宣言
-「核心配置 + 規則DCA + Tactical Overlay + Macro Risk Gate + 8月再平衡 + 10年不改核心框架」
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-📊 新版配置
+=== 組合配置 (Portfolio Allocation) ===
 IWY 20% | SPMO 20% | RSP 20% | PFF 20% | BND 10% | BNDW 10%
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+=== 現金政策 (Cash Policy) ===
+• 目標現金 = 12 x 每月最低投資額
+• 現金底線 = 9 x 最低 (低於暫停 Tactical)
+• 現金上限 = 18 x 最低 (可考慮額外買入)
 
-💰 現金持有政策
-• 現金持有目標 = 12 × 每月最低投資額
-• 現金戶口只用作 DCA 與 emergency reserve
-• 若現金低於 9 個月最低投資額，暫停 tactical overlays
-• 若現金高於 18 個月最低投資額，可考慮額外一次性補倉
+=== 投資模式 (Investment Modes) ===
+Working Mode: 每月最低 = 1000 USD + TTM股息/12
+Student Mode: 每月最低 = TTM股息/12 (最少 100 USD)
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+=== Rule 1 - DCA 規則（加強版：加 volume + MA 確認） ===
+觸發條件:
+• Buy1: RSP 單日跌 >= -1.3% **AND** 當日成交量 > 20日平均成交量
+• Buy2: RSP 月內回撤 >= -5% **AND** RSP 現價 < 50日 MA
+• Buy3: RSP 月內回撤 >= -10% **AND** (當日成交量 > 50日平均成交量 **OR** RSP 現價 < 200日 MA)
+• Fallback: 月內無觸發，第3個星期五執行（若當日 RSP < 50日 MA，可加碼 20%）
+• 每月最多 3    次買入
 
-💼 Working Mode
-每月最低投資額 = 1000 USD + 過去 12 個月實收股息 / 12
+金額分配: 按目標權重分配到 6 隻 ETF  
+（可選：若 RSP 跌穿 50日 MA 超過 10%，臨時 overweight RSP 5–10%）
 
-🎓 Student Mode
-每月最低投資額 = 過去 12 個月實收股息 / 12（最少 100 USD）
+濾波 override: 若 trigger 響但 volume/MA 唔達標，記為「missed signal」，次日再 check 若改善可用 50% 份額執行
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+=== Rule 2 - Tactical Overlay（加強版：加 volume + MA 確認） ===
+觸發條件:
+• IWY 同 SPMO 較 40 日前跌 >= 20% **AND** (過去 40 日平均成交量 > 50日歷史平均 **OR** 兩隻現價 < 50日 MA)
 
-⚙️ Rule 1 - DCA 規則
+操作:
+• 賣出 50% BND
+• 買入 50% IWY + 50% SPMO（建議分段：先買 25%，若再跌 5% 或 volume 爆 >2x 20日平均，再補剩餘）
 
-第1次買入觸發條件：
-• RSP 單日跌幅 <= -1% 即觸發
-• 若全月未觸發，則於當月第 3 個星期五保底買入
+限制:
+• 3 個月內不能重複觸發
+• 現金必須高於底線
+• 宏觀 regime 必須係 Expansion
+• 若 volume 低過平均，等多最多 5 個交易日每日 re-check 確認
 
-第2次買入觸發條件：
-• 若 RSP 從當月高點回撤 >= -5%，觸發第 2 次買入
+=== 新 Rule 3 - Volume Spike Booster（爆量加碼） ===
+觸發條件:
+• 任何 Rule 1 或 Rule 2 買入日，該 ETF 成交量 > 2x 20日平均成交量（capitulation 信號）
 
-第3次買入觸發條件：
-• 若 RSP 從當月高點回撤 >= -10%，觸發第 3 次買入
-• 每月最多 3 次
+操作:
+• 買入金額加 20–30%（現金夠就加，唔夠減低個月 DCA）
 
-資金分配：
-每次買入金額按 Working Mode 每月最低投資額執行，並按戰略權重分配至 6 隻 ETF：
-IWY 20%、SPMO 20%、RSP 20%、PFF 20%、BND 10%、BNDW 10%
+限制:
+• 每月只限一次
+• 宏觀唔可以係 Contraction
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+=== 新 Rule 4 - MA Crossover 輔助信號 ===
+觸發條件:
+• 買入後：RSP 由下向上穿 50日 MA → 可再加 10% 買入（確認反彈）
+• Tactical 持有中：IWY/SPMO 跌穿 200日 MA → 考慮 partial exit 20%（防長熊）
 
-🚀 Rule 2 - Tactical Overlay
+整合 Tactical Exit:
+• 若 RSP 表現跑贏 IWY/SPMO 超過 10% (40 日) **AND** RSP > 50日 MA → 建議加快賣出 30–50% tactical position
 
-觸發條件（Trigger）：
-• 若 IWY 與 SPMO 都較 40 個交易日前「收市價」下跌至少 20%
+=== 宏觀經濟週期 (Macro Regime) ===
+5 個指標:
+1. LEI Recession Signal: 年比跌幅擴大
+2. 10Y-3M Yield Spread: < 0 (倒掛)
+3. Sahm Rule: >= 0.50
+4. CCI Expectations: < 80
+5. Jobless Claims 4W MA: > 400,000
 
-操作（Action）：
-• 賣出 50% 的 BND
-• 所得資金 50% 買入 IWY、50% 買入 SPMO
+判斷:
+🟢 Expansion (0 個 signal): 所有規則正常
+🟡 Peak (1-2 signals): Rule 1 正常，Rule 2 暫停
+🔴 Contraction (3+ signals): 只做最低 DCA，Rule 2 & Rule 3 暫停
+🔵 Trough: 手動判斷
 
-限制（Limits）：
-• 每次觸發後 3 個月內不得重複觸發
-• 若現金低於 9 個月最低投資額，暫停 Rule 2
-• 若宏觀狀態非 Expansion，暫停 Rule 2
+=== AI Risk Flag (Optional) ===
+保護 Tactical Overlay 免受 AI/泡沫調整影響
 
-退出（Exit）：
-• Tactical 倉位不設獨立止賺
-• 持有至下一次年度 8 月再平衡時，由再平衡自動拉回戰略權重
+條件:
+1. QQQ 回撤 >= 15% 持續 2 個月
+2. 或 VIX > 25 持續 2 週
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+如果 AI Risk Active:
+→ 暫停 Tactical Overlay (即使 macro 係 Peak/Expansion)
 
-🌍 Macro Overlay Rule
+=== Tactical Exit 彈性 ===
+如果 RSP 表現跑贏 IWY/SPMO 超過 10% (40 日)  
+→ 建議賣出 30-50% tactical position  
+（若 RSP > 50日 MA 更強烈建議執行）
 
-宏觀週期只作風險閘門，不取代 Rule 1。
-每月檢查 3 個指標：
-• Conference Board LEI recession signal
-• 10Y-3M yield spread 是否低於 0
-• Sahm Rule 是否 >= 0.50
+作用: 捕捉 AI/增長 → 實體經濟 嘅輪動
 
-經濟週期判斷：
-🟢 Expansion（擴張期）
-   0 個 signals active：所有規則照常執行
+=== Annual Rebalance ===
+每年 8 月檢查權重
+偏離 > ±2% 就 rebalance
+Tactical 倉位會自動拉回目標權重
 
-🟡 Peak（高峰期）
-   1 個 signal active：Rule 1 照常，但暫停 Rule 2 tactical overlay
-
-🔴 Contraction/Recession（收縮/衰退期）
-   2 個或以上 signals active：只保留 Rule 1 最低 DCA，暫停 Rule 2 tactical overlay
-
-🔵 Trough（谷底期）
-   需手動判斷，當經濟指標開始改善但仍在低位時
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-⚖️ Annual Rebalance
-
-• 每年 8 月初檢查權重
-• 若偏離目標超過 ±2%，則再平衡回目標配置
-• Tactical 倉位會在此時自動拉回戰略權重
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-🧠 組合哲學
-
-目標係長期風險調整後回報，而唔係每段時間都跑贏 SPY。
-若 Sharpe 較高、Beta 較低、Max Drawdown 較細，即使 CAGR 略低亦可接受。
-
-🧠 執行原則
-
-除非有完整 backtest + 至少 2 年實盤證據，否則不得更改核心規則。
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        """
+=== 執行原則 ===
+除非有完整 backtest + 起碼 2 年實盤證據，
+否則唔改核心規則。
+特別注意：volume + MA 濾波屬「加強層」，backtest 後若明顯降低交易次數或表現變差，可調鬆條件（例如 volume 改 1.5x、MA 改 20日等）。
+"""
         
         rules_text.setPlainText(rules_content)
         layout.addWidget(rules_text)

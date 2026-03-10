@@ -156,10 +156,10 @@ class PerformanceAnalyzer:
         alpha = portfolio_return - (risk_free_rate + beta * (benchmark_return - risk_free_rate))
         return alpha
     
-    def get_performance_metrics(self, benchmark='SPY'):
+    def get_performance_metrics(self, benchmark='SPY', start_date=None, end_date=None):
         """獲取完整表現指標"""
-        portfolio_returns = self.get_portfolio_returns()
-        benchmark_returns = self.get_benchmark_returns(benchmark)
+        portfolio_returns = self.get_portfolio_returns(start_date, end_date)
+        benchmark_returns = self.get_benchmark_returns(benchmark, start_date, end_date)
         
         if portfolio_returns.empty:
             return None

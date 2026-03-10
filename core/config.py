@@ -29,9 +29,22 @@ DEFAULT_SETTINGS = {
     "mode": "working",
     "extra_investable_usd": 0,
     "fx_rate": 7.8,
-    "lei_signal": 0,
-    "yield_curve_inverted": 0,
-    "sahm_rule_signal": 0
+    # Core Macro Indicators
+    "lei_signal": 0,                    # LEI recession signal (0/1)
+    "yield_curve_inverted": 0,          # 10Y-3M spread < 0 (0/1)
+    "sahm_rule_signal": 0,             # Sahm rule >= 0.50
+    "cci_signal": 0,                    # CCI Expectations Index (< 80)
+    "jobless_claims": 0,                # Initial Jobless Claims 4W MA (> 400000)
+    "regime_override": None,            # Manual override: "Trough"
+    # AI Risk Flag (Optional additional gate)
+    "ai_risk_enabled": False,          # Enable/disable AI risk check
+    "qqq_current": None,               # QQQ current price
+    "qqq_monthly_high": None,          # QQQ monthly high
+    "qqq_months_above_15pct": 0,       # Months with >15% drawdown
+    "vix_current": None,                # Current VIX level
+    "vix_weeks_above_25": 0,           # Weeks with VIX > 25
+    # Tactical Exit Signal
+    "tactical_exit_enabled": True,     # Enable early exit signal
 }
 
 # Working Mode
@@ -43,9 +56,9 @@ TACTICAL_DROP_THRESHOLD = -0.20
 TACTICAL_BND_SELL_PCT = 0.50
 
 # Rule 1 Thresholds
-RULE1_BUY1_THRESHOLD = -0.01
-RULE1_BUY2_THRESHOLD = -0.05
-RULE1_BUY3_THRESHOLD = -0.10
+RULE1_BUY1_THRESHOLD = -0.013  # -1.3%
+RULE1_BUY2_THRESHOLD = -0.05   # -5%
+RULE1_BUY3_THRESHOLD = -0.10   # -10%
 
 # Rebalance
 REBALANCE_MONTH = 8

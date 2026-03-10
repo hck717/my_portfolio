@@ -1,7 +1,7 @@
 {
-  "current_assets_hkd": 400000,
+  "current_assets_hkd": 400000.0,
   "mode": "working",
-  "extra_investable_usd": 0,
+  "extra_investable_usd": 0.0,
   "fx_rate": 7.8,
   "lei_signal": 0,
   "yield_curve_inverted": 0,
